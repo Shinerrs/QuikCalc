@@ -29,15 +29,15 @@ class ViewController: UIViewController {
     // does this require a limiter? So as to only display a certain number of characters?
     @IBOutlet weak var displayLabel: UILabel!
     // or should it be done in InterfaceBuilder?
-    var oldTotal:Int = 0;
-    var currentTotal:Int = 0;
+    var oldTotal:Double = 0;
+    var currentTotal:Double = 0;
     var oper:String?
     var equAct:Bool = false;
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        displayLabel.text = "\(currentTotal)"
+        displayLabel.text = "\(0)"
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
     @IBAction func pressOperator(sender: AnyObject) {
         let o:String! = (sender as UIButton).titleLabel?.text
         
-        currentTotal = (displayLabel.text!).toInt()!
+        currentTotal = (NSString(string: displayLabel.text!)).doubleValue
         oldTotal = oldTotal + currentTotal
         
         if currentTotal != 0 {
@@ -101,7 +101,7 @@ class ViewController: UIViewController {
             oper = nil
         }
         }
-        displayLabel.text = "\(currentTotal)"
+        displayLabel.text = "\(0)"
    
     }
     
@@ -109,7 +109,7 @@ class ViewController: UIViewController {
     Perform calculation and display result
     */
     @IBAction func equalsOp (sender: AnyObject) {
-        currentTotal = (displayLabel.text!).toInt()!
+        currentTotal = (NSString(string: displayLabel.text!)).doubleValue
         equAct = true
         if(oper == "+"){
             
@@ -158,7 +158,7 @@ class ViewController: UIViewController {
         oldTotal = 0
         oper = nil
         
-        displayLabel.text = "\(currentTotal)"
+        displayLabel.text = "\(0)"
     }
     
     /*
