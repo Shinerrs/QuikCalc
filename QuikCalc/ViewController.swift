@@ -1,7 +1,7 @@
 //
 //  ViewController.swift
 //  QuikCalc
-//
+//  Altered by; Mark Shine 20052862
 //  Created by Robert O'Connor on 12/02/2015.
 //  Copyright (c) 2015 WIT. All rights reserved.
 //
