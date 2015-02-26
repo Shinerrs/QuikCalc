@@ -29,9 +29,10 @@ class ViewController: UIViewController {
     // does this require a limiter? So as to only display a certain number of characters?
     @IBOutlet weak var displayLabel: UILabel!
     // or should it be done in InterfaceBuilder?
-    
+    var oldTotal:Int = 0;
     var currentTotal:Int = 0;
     var oper:String?
+    var equAct:Bool = false;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +53,7 @@ class ViewController: UIViewController {
     Is this it?
     */
     @IBAction func pressNumber(sender: AnyObject) {
-        
+       
         if let digit = (sender as UIButton).titleLabel?.text {
             if(displayLabel.text! != "0"){
                 displayLabel.text! += digit
@@ -71,30 +72,82 @@ class ViewController: UIViewController {
     @IBAction func pressOperator(sender: AnyObject) {
         let o:String! = (sender as UIButton).titleLabel?.text
         
+        currentTotal = (displayLabel.text!).toInt()!
+        oldTotal = oldTotal + currentTotal
+        
+        if currentTotal != 0 {
         switch(o){
         case "+":
             // add operation
+            oldTotal = currentTotal
             oper = "+"
+            currentTotal = 0
         case "-":
             // subtract operation
+            oldTotal = currentTotal
             oper = "-"
+            currentTotal = 0
         case "x":
             // multiply operation
+            oldTotal = currentTotal
             oper = "x"
+            currentTotal = 0
         case "/":
             // divide operation
+            oldTotal = currentTotal
             oper = "/"
+            currentTotal = 0
         default:
             oper = nil
         }
+        }
+        displayLabel.text = "\(currentTotal)"
+   
     }
     
     /*
     Perform calculation and display result
     */
     @IBAction func equalsOp (sender: AnyObject) {
+        currentTotal = (displayLabel.text!).toInt()!
+        equAct = true
+        if(oper == "+"){
+            
+            currentTotal = oldTotal + currentTotal
+            
+        }
+        
+        
+        
+        if(oper == "-"){
+            
+            currentTotal = oldTotal - currentTotal
+            
+        }
+        
+        
+        
+        if(oper == "x"){
+            
+            currentTotal = oldTotal * currentTotal
+            
+        }
+        
+        
+        
+        if(oper == "/"){
+            println(currentTotal)
+            currentTotal = oldTotal / currentTotal
+            println("/")
+            println(currentTotal)
+        }
+        println(oldTotal)
+        println(oper)
+        println(currentTotal)
         
         displayLabel.text = "\(currentTotal)"
+        currentTotal = 0
+        oldTotal = 0
     }
     
     /*
@@ -102,6 +155,7 @@ class ViewController: UIViewController {
     */
     @IBAction func clearOp (sender: AnyObject) {
         currentTotal = 0
+        oldTotal = 0
         oper = nil
         
         displayLabel.text = "\(currentTotal)"
